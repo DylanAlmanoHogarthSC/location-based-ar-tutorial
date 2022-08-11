@@ -82,7 +82,8 @@ function renderPlaces(places) {
             var newIndex = modelIndex % models.length;
             setModel(models[newIndex], entity);
 
-        })
+        });
+
         scene.appendChild(model)
     });    
 }
