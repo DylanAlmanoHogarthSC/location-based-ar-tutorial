@@ -1,16 +1,15 @@
 window.onload = () => {
-
     const button = document.querySelector('button[data-action="change"]');
-    button.innerText = '?';
+    button.innerText = '﹖';
 
     let places = staticLoadPlaces();
     renderPlaces(places);
-}
+};
 
-function staticLoadPlaces () {
+function staticLoadPlaces() {
     return [
         {
-            name: 'Pokémon',
+            name: 'Pokèmon',
             location: {
                 lat: 51.507974,
                 lng: -0.106840,
@@ -22,10 +21,9 @@ function staticLoadPlaces () {
 var models = [
     {
         url: './assets/magnemite/scene.gltf',
-        scale: '0.5, 0.5, 0.5',
-        rotation: '0 180 0',
+        scale: '0.5 0.5 0.5',
         info: 'Magnemite, Lv. 5, HP 10/10',
-
+        rotation: '0 180 0',
     },
     {
         url: './assets/articuno/scene.gltf',
@@ -42,17 +40,17 @@ var models = [
 ];
 
 var modelIndex = 0;
-var setModel = function(model, entity) {
-    if (model.scale){
-        entity.setAttribute( 'scale', model.scale);
-    }
-    
-    if (model.rotation){
-        entity.setAttribute( 'rotation', model.rotation);
+var setModel = function (model, entity) {
+    if (model.scale) {
+        entity.setAttribute('scale', model.scale);
     }
 
-    if (model.position){
-        entity.setAttribute( 'position', model.position);
+    if (model.rotation) {
+        entity.setAttribute('rotation', model.rotation);
+    }
+
+    if (model.position) {
+        entity.setAttribute('position', model.position);
     }
 
     entity.setAttribute('gltf-model', model.url);
@@ -65,25 +63,23 @@ function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
 
     places.forEach((place) => {
-
-        let latitude = place.logcation.lat;
+        let latitude = place.location.lat;
         let longitude = place.location.lng;
 
         let model = document.createElement('a-entity');
-        model.setAttribute('gps-entit-place', 'latitude: ${latitude}; longitude: ${longitude};');
+        model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
 
         setModel(models[modelIndex], model);
 
         model.setAttribute('animation-mixer', '');
 
-        document.querySelector('button[data-action="change]').addEventListener('click', function() {
+        document.querySelector('button[data-action="change"]').addEventListener('click', function () {
             var entity = document.querySelector('[gps-entity-place]');
             modelIndex++;
             var newIndex = modelIndex % models.length;
             setModel(models[newIndex], entity);
-
         });
 
-        scene.appendChild(model)
-    });    
+        scene.appendChild(model);
+    });
 }
